@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.18;
+pragma solidity 0.8.18; // q is this the correct compiler ver?
 
 /*
  * @author not-so-secure-dev
@@ -11,6 +11,8 @@ contract PasswordStore {
     error PasswordStore__NotOwner();
 
     address private s_owner;
+    //@audit here the password is just stored in a private varible that doesn't mean its pvt its on blockchain that means its publi
+
     string private s_password;
 
     event SetNetPassword();
@@ -24,6 +26,8 @@ contract PasswordStore {
      * @param newPassword The new password to set.
      */
     function setPassword(string memory newPassword) external {
+        //@audit here it isn't set that msg.sender == s_owner;
+        // missing access control
         s_password = newPassword;
         emit SetNetPassword();
     }
